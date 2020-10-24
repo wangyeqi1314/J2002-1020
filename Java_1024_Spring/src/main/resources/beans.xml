@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="userDAO" class="com.qf.dao.impl.UserDAOImpl"></bean>
+    <bean id="addressDAO" class="com.qf.dao.impl.AddressDAOImpl"></bean>
+
+    <bean id="userService"
+          class="com.qf.service.impl.UserServiceImpl"
+          c:username="用户业务层"
+          c:dao-ref="userDAO"/>
+
+
+
+    <bean id="addressService"
+          class="com.qf.service.impl.AddressServiceImpl"
+          p:username="地址业务层"
+          p:dao-ref="addressDAO"/>
+
+</beans>
