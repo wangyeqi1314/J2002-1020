@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.mapper.CartMapper">
+
+    <resultMap id="cartResultMap" type="Cart" autoMapping="true">
+        <id property="id" column="ctid"/>
+<!--        <result property="amount" column="amount"/>-->
+        <!-- to one -->
+        <association property="product"
+                     resultMap="com.qf.mapper.ProductMapper.productResultMap"
+                     autoMapping="true"/>
+    </resultMap>
+
+    <select id="queryByUid" resultMap="cartResultMap">
+        SELECT *, tb_cart.id AS ctid, tb_product.id AS pid
+        FROM tb_cart
+        INNER JOIN tb_product ON tb_product.id=tb_cart.pid
+        WHERE uid=#{uid}
+    </select>
+
+    <delete id="delete">
+        DELETE FROM tb_cart WHERE id IN
+        <foreach item="item" collection="ids"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>

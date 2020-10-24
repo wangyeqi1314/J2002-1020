@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <bean id="userService"
+          class="com.qf.service.impl.UserServiceImpl"
+          init-method="init"
+          destroy-method="destroy"></bean>
+
+    <bean id="addressService"
+          class="com.qf.service.impl.AddressServiceImpl"
+          init-method="init"
+          destroy-method="destroy"
+          scope="prototype"></bean>
+
+    <bean scope="prototype"
+          id="dataSource"
+          class="com.qf.siyoude.DataSourceFactory"
+          factory-method="createStaticDataSource">
+    </bean>
+
+    <bean id="dataSourceFactory"
+          class="com.qf.siyoude.DataSourceFactory">
+    </bean>
+
+    <bean id="dataSourceObject"
+          factory-bean="dataSourceFactory"
+          factory-method="createDataSource">
+    </bean>
+
+</beans>

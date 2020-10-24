@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.mapper.CartMapper">
+
+    <resultMap id="cartResultMap" type="Cart" autoMapping="true">
+        <id property="id" column="ctid"/>
+
+        <association property="product" javaType="product" autoMapping="true">
+            <id property="id" column="pid"/>
+        </association>
+    </resultMap>
+
+    <select id="queryByUid" resultMap="cartResultMap">
+        SELECT *, tb_cart.id AS ctid, tb_product.id AS pid
+        FROM tb_cart
+        INNER JOIN tb_product ON tb_product.id=tb_cart.pid
+        WHERE uid=#{uid}
+    </select>
+
+</mapper>
